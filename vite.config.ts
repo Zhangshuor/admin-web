@@ -10,6 +10,18 @@ export default defineConfig({
     vue(),
     vueDevTools(),
   ],
+  css: {
+    preprocessorOptions: {
+      less: {
+        modifyVars: {
+          // 修改主题色变量颜色
+          // '@primary-6': "red",
+        },
+        additionalData: `@import "@/assets/var.less";`,
+        javascriptEnabled: true,
+      },
+    },
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))

@@ -48,11 +48,12 @@
     height: 100vh;
     overflow-y: auto;
     overflow-x: hidden;
-    border-right: 1px solid var(--color-neutral-2);
+    border-right: @s_border;
+    background-color: @primary-6;
     .s_logo {
       width: 100%;
       height: 90px;
-      border-bottom: 1px solid var(--color-neutral-2);
+      border-bottom: @s_border;
     }
   }
 
@@ -61,7 +62,7 @@
     .s_header {
       width: 100%;
       height: 60px;
-      border-bottom: 1px solid var(--color-neutral-2);
+      border-bottom: @s_border;
       display: flex;
       justify-content: space-between; //第一个子元素紧贴左侧。最后一个子元素紧贴右侧。剩余的子元素均匀分布在中间，空白间距完全相等。
       align-items: center;
@@ -70,7 +71,7 @@
     .s_tabs {
       width: 100%;
       height: 30px;
-      border-bottom: 1px solid var(--color-neutral-2);
+      border-bottom: @s_border;
 
     }
 
