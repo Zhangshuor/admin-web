@@ -1,5 +1,6 @@
 <script setup lang="ts">
 
+import S_theme from "@/components/common/s_theme.vue";
 </script>
 
 <template>
@@ -19,8 +20,7 @@
         </div>
         <div class="s_actions">
           <icon-home/>
-          <icon-sun-fill/>
-          <icon-moon-fill/>
+          <s_theme></s_theme>
           <icon-fullscreen/>
           <icon-fullscreen-exit/>
           <div class="s_user_info_action">
@@ -43,13 +43,16 @@
 <style lang="less">
 .s_admin {
   display: flex; // 横向 左右结构
+  background-color: @color-fill-1;
+  color: @color-text-1;
+
   .s_aside {
     width: 240px;
     height: 100vh;
     overflow-y: auto;
     overflow-x: hidden;
     border-right: @s_border;
-    background-color: @primary-6;
+
     .s_logo {
       width: 100%;
       height: 90px;
@@ -59,6 +62,7 @@
 
   .s_main {
     width: calc(100% - 240px);
+
     .s_header {
       width: 100%;
       height: 60px;
@@ -68,6 +72,7 @@
       align-items: center;
       padding: 0 20px; // 内边距 垂直方向 0px 水平方向 20px
     }
+
     .s_tabs {
       width: 100%;
       height: 30px;
