@@ -1,6 +1,8 @@
 <script setup lang="ts">
 
 import S_theme from "@/components/common/s_theme.vue";
+import {theme} from "@/components/common/s_theme.ts";
+import S_screen from "@/components/common/s_screen.vue";
 </script>
 
 <template>
@@ -21,14 +23,14 @@ import S_theme from "@/components/common/s_theme.vue";
         <div class="s_actions">
           <icon-home/>
           <s_theme></s_theme>
-          <icon-fullscreen/>
-          <icon-fullscreen-exit/>
+          <s_screen></s_screen>
           <div class="s_user_info_action">
 
           </div>
         </div>
       </div>
       <div class="s_tabs">
+        <div>{{theme}}</div>
 
       </div>
       <div class="s_container">
