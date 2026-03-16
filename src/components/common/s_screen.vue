@@ -16,10 +16,6 @@ function exitFullScreen() {
   document?.exitFullscreen()
   isFullScreen.value = false
 }
-
-// 是否是全屏
-
-
 </script>
 
 <template>

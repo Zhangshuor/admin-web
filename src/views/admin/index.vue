@@ -3,6 +3,7 @@
 import S_theme from "@/components/common/s_theme.vue";
 import {theme} from "@/components/common/s_theme.ts";
 import S_screen from "@/components/common/s_screen.vue";
+import S_menu from "@/components/admin/s_menu.vue";
 </script>
 
 <template>
@@ -11,9 +12,7 @@ import S_screen from "@/components/common/s_screen.vue";
       <div class="s_logo">
 
       </div>
-      <div class="s_menu">
-
-      </div>
+      <s_menu></s_menu>
     </div>
     <div class="s_main">
       <div class="s_header">
@@ -30,13 +29,11 @@ import S_screen from "@/components/common/s_screen.vue";
         </div>
       </div>
       <div class="s_tabs">
-        <div>{{theme}}</div>
-
+        <div>{{ theme }}</div>
       </div>
       <div class="s_container">
         <RouterView></RouterView>
       </div>
-
     </div>
 
   </div>
@@ -45,7 +42,7 @@ import S_screen from "@/components/common/s_screen.vue";
 <style lang="less">
 .s_admin {
   display: flex; // 横向 左右结构
-  background-color: @color-fill-1;
+  background-color: var(--color-bg-1);//这个颜色可以变化（@color-bg-1 颜色是固定的）
   color: @color-text-1;
 
   .s_aside {
@@ -87,6 +84,7 @@ import S_screen from "@/components/common/s_screen.vue";
       height: calc(100vh - 90px);
       overflow-y: auto;
       overflow-x: hidden;
+      background-color: @color-fill-2;
     }
   }
 }
