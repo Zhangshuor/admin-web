@@ -48,8 +48,6 @@ import S_menu from "@/components/admin/s_menu.vue";
   .s_aside {
     width: 240px;
     height: 100vh;
-    overflow-y: auto;
-    overflow-x: hidden;
     border-right: @s_border;
 
     .s_logo {
