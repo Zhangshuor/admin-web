@@ -64,40 +64,66 @@ const menuList: MenuType[] = [
 </script>
 
 <template>
-  <div class="s_menu scrollbar">
-    <a-menu show-collapse-button>
-      <!--template只逻辑循环，不物理占位-->
-      <template v-for="menu in menuList" :key="menu.name">
+  <div class="s_menu">
+    <div class="s_menu_inner scrollbar">
+      <a-menu show-collapse-button>
+        <!--template只逻辑循环，不物理占位-->
+        <template v-for="menu in menuList" :key="menu.name">
 
-        <a-menu-item v-if="!menu.children" :key="menu.name + '_item'">
-          <template #icon>
-            <s_component :is="menu.icon"></s_component>
-          </template>
-          {{ menu.title }}
-        </a-menu-item>
-
-        <a-sub-menu v-else :key="menu.name + '_sub'">
-          <template #icon>
-            <s_component :is="menu.icon"></s_component>
-          </template>
-          <template #title>{{ menu.title }}</template>
-          <a-menu-item v-for="sub in menu.children" :key="sub.name">
+          <a-menu-item v-if="!menu.children" :key="menu.name + '_item'">
             <template #icon>
               <s_component :is="menu.icon"></s_component>
             </template>
-            {{ sub.title }}
+            {{ menu.title }}
           </a-menu-item>
-        </a-sub-menu>
 
-      </template>
-    </a-menu>
+          <a-sub-menu v-else :key="menu.name + '_sub'">
+            <template #icon>
+              <s_component :is="menu.icon"></s_component>
+            </template>
+            <template #title>{{ menu.title }}</template>
+            <a-menu-item v-for="sub in menu.children" :key="sub.name">
+              <template #icon>
+                <s_component :is="menu.icon"></s_component>
+              </template>
+              {{ sub.title }}
+            </a-menu-item>
+          </a-sub-menu>
+
+        </template>
+      </a-menu>
+    </div>
   </div>
 </template>
 
 <style lang="less">
-.s_menu{
+.s_menu {
   height: calc(100vh - 90px);
-  overflow-y: auto;
-  overflow-x: hidden;
+  position: relative;
+
+  &:hover{
+    .arco-menu-collapse-button {
+      opacity: 1 !important;
+    }
+  }
+
+  .s_menu_inner {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    .arco-menu {
+      position: inherit;
+      height: 100%;
+
+      .arco-menu-collapse-button {
+        top: 50%;
+        transform: translate(-50%, -50%);
+        left: 240px;
+        transition: all .3s;
+        opacity: 0;
+      }
+    }
+  }
 }
 </style>
