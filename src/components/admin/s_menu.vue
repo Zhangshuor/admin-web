@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import type {Component} from "vue";
+import {type Component, ref} from "vue";
 import {IconHome, IconUser, IconSettings} from "@arco-design/web-vue/es/icon";
 import S_component from "@/components/common/s_component.vue";
+import {collapsed} from "@/components/admin/s_menu.ts";
 
 interface MenuType {
   title: string,
@@ -64,9 +65,11 @@ const menuList: MenuType[] = [
 </script>
 
 <template>
-  <div class="s_menu">
+  <div class="s_menu" :class="{collapsed:collapsed}">
     <div class="s_menu_inner scrollbar">
-      <a-menu show-collapse-button>
+      <a-menu
+          v-model:collapsed="collapsed"
+          show-collapse-button>
         <!--template只逻辑循环，不物理占位-->
         <template v-for="menu in menuList" :key="menu.name">
 
@@ -100,6 +103,12 @@ const menuList: MenuType[] = [
 .s_menu {
   height: calc(100vh - 90px);
   position: relative;
+
+  &.collapsed{
+    .arco-menu-collapse-button {
+      left: 48px!important;
+    }
+  }
 
   &:hover{
     .arco-menu-collapse-button {

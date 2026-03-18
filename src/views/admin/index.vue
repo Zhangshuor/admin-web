@@ -4,11 +4,12 @@ import S_theme from "@/components/common/s_theme.vue";
 import {theme} from "@/components/common/s_theme.ts";
 import S_screen from "@/components/common/s_screen.vue";
 import S_menu from "@/components/admin/s_menu.vue";
+import {collapsed} from "@/components/admin/s_menu.ts";
 </script>
 
 <template>
   <div class="s_admin">
-    <div class="s_aside">
+    <div class="s_aside" :class="{collapsed:collapsed}">
       <div class="s_logo">
 
       </div>
@@ -49,16 +50,25 @@ import S_menu from "@/components/admin/s_menu.vue";
     width: 240px;
     height: 100vh;
     border-right: @s_border;
+    transition: width .3s;
 
     .s_logo {
       width: 100%;
       height: 90px;
       border-bottom: @s_border;
     }
+
+    &.collapsed {
+      width: 48px;
+      &~.s_main { // ~ 是 CSS 的“后续兄弟选择器”，用于选择同一父元素下位于 .s_aside.collapsed 之后的所有兄弟元素 .s_main
+        width: calc(100% - 48px);
+      }
+    }
   }
 
   .s_main {
     width: calc(100% - 240px);
+    transition: width .3s;
 
     .s_header {
       width: 100%;
