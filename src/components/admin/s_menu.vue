@@ -18,43 +18,45 @@ const menuList: MenuType[] = [
   {
     title: '首页',
     name: 'home',
-    icon: IconHome,
+    icon: "iconfont icon-shouye",
   },
   {
     title: '个人中心',
     name: 'userCenter',
-    icon: IconUser,
+    icon: "iconfont icon-user",
     children: [
       {
         title: '用户信息',
         name: 'userInfo',
+        icon: "iconfont icon-yonghuxinxi-"
       },
     ]
   },
   {
     title: '用户管理',
     name: 'userManage',
-    icon: IconUser,
+    icon: "iconfont icon-yonghuguanli",      // 使用 icon-yonghuguanli
     children: [
       {
         title: '用户列表',
         name: 'userList',
+        icon: "iconfont icon-yonghuliebiao"   // 使用 icon-yonghuliebiao
       },
     ]
   },
   {
     title: '系统设置',
     name: 'settingsManage',
-    icon: IconSettings,
+    icon: "iconfont icon-xitongshezhi",      // 使用 icon-xitongshezhi
     children: [
       {
         title: '系统信息',
         name: 'settings',
+        icon: "iconfont icon-xitongxinxi"     // 使用 icon-xitongxinxi
       },
     ]
   },
 ]
-
 const openKeys = ref<String[]>([])
 
 function initRoute(){
@@ -96,7 +98,7 @@ function menuItemClick(key: string) {
             <template #title>{{ menu.title }}</template>
             <a-menu-item v-for="sub in menu.children" :key="sub.name">
               <template #icon>
-                <s_component :is="menu.icon"></s_component>
+                <s_component :is="sub.icon"></s_component>
               </template>
               {{ sub.title }}
             </a-menu-item>
