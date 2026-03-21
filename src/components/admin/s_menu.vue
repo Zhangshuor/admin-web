@@ -3,6 +3,8 @@ import {type Component, ref} from "vue";
 import {IconHome, IconUser, IconSettings} from "@arco-design/web-vue/es/icon";
 import S_component from "@/components/common/s_component.vue";
 import {collapsed} from "@/components/admin/s_menu.ts";
+import router from "@/router";
+import {useRoute} from "vue-router";
 
 interface MenuType {
   title: string,
@@ -10,11 +12,12 @@ interface MenuType {
   icon?: string | Component,
   children?: MenuType[]
 }
+const route = useRoute()
 
 const menuList: MenuType[] = [
   {
     title: '首页',
-    name: 'admin',
+    name: 'home',
     icon: IconHome,
   },
   {
@@ -40,47 +43,53 @@ const menuList: MenuType[] = [
     ]
   },
   {
-    title: '组件管理',
-    name: 'componentManage',
-    icon: "iconfont xxx",
-    children: [
-      {
-        title: '组件列表',
-        name: 'componentList',
-      },
-    ]
-  },
-  {
     title: '系统设置',
     name: 'settingsManage',
     icon: IconSettings,
     children: [
       {
         title: '系统信息',
-        name: 'settingsInfo',
+        name: 'settings',
       },
     ]
   },
 ]
+
+const openKeys = ref<String[]>([])
+
+function initRoute(){
+  if (route.matched.length === 3){
+    openKeys.value = [route.matched[1].name as string]
+  }
+}
+
+initRoute()
+
+function menuItemClick(key: string) {
+  router.push({name: key})
+}
 </script>
 
 <template>
   <div class="s_menu" :class="{collapsed:collapsed}">
     <div class="s_menu_inner scrollbar">
       <a-menu
+          @menu-item-click="menuItemClick"
           v-model:collapsed="collapsed"
+          v-model:open-keys="openKeys"
+          :default-selected-keys="[route.name]"
           show-collapse-button>
         <!--template只逻辑循环，不物理占位-->
         <template v-for="menu in menuList" :key="menu.name">
 
-          <a-menu-item v-if="!menu.children" :key="menu.name + '_item'">
+          <a-menu-item v-if="!menu.children" :key="menu.name">
             <template #icon>
               <s_component :is="menu.icon"></s_component>
             </template>
             {{ menu.title }}
           </a-menu-item>
 
-          <a-sub-menu v-else :key="menu.name + '_sub'">
+          <a-sub-menu v-else :key="menu.name">
             <template #icon>
               <s_component :is="menu.icon"></s_component>
             </template>
@@ -104,13 +113,13 @@ const menuList: MenuType[] = [
   height: calc(100vh - 90px);
   position: relative;
 
-  &.collapsed{
+  &.collapsed {
     .arco-menu-collapse-button {
-      left: 48px!important;
+      left: 48px !important;
     }
   }
 
-  &:hover{
+  &:hover {
     .arco-menu-collapse-button {
       opacity: 1 !important;
     }
