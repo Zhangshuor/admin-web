@@ -5,6 +5,7 @@ import {theme} from "@/components/common/s_theme.ts";
 import S_screen from "@/components/common/s_screen.vue";
 import S_menu from "@/components/admin/s_menu.vue";
 import {collapsed} from "@/components/admin/s_menu.ts";
+import S_breadcrumb from "@/components/admin/s_breadcrumb.vue";
 </script>
 
 <template>
@@ -17,9 +18,7 @@ import {collapsed} from "@/components/admin/s_menu.ts";
     </div>
     <div class="s_main">
       <div class="s_header">
-        <div class="s_breadcrumbs">
-
-        </div>
+        <s_breadcrumb/>
         <div class="s_actions">
           <icon-home/>
           <s_theme></s_theme>
