@@ -1,7 +1,37 @@
 <script setup lang="ts">
+import router from "@/router";
+
 function handleSelect(val: string) {
-  console.log(val)
+  if (val === "logout"){
+    // 注销流程
+    return
+  }
+  router.push({name:val})
 }
+
+interface OptionsType {
+  name:string,
+  title:string
+}
+
+const options : OptionsType[] = [
+  {
+    title:"个人信息",
+    name:"userInfo"
+  },
+  {
+    title:"用户列表",
+    name:"userList"
+  },
+  {
+    title:"系统信息",
+    name:"settings"
+  },
+  {
+    title:"注销退出",
+    name:"logout"
+  }
+]
 
 </script>
 
@@ -13,15 +43,7 @@ function handleSelect(val: string) {
       <icon-down/>
     </div>
     <template #content>
-      <a-doption>Option 1</a-doption>
-      <a-doption disabled>Option 2</a-doption>
-      <a-doption>Option 3</a-doption>
-      <a-doption>Option 4</a-doption>
-      <a-doption>Option 5</a-doption>
-      <a-doption>Option 6</a-doption>
-      <a-doption>Option 7</a-doption>
-      <a-doption>Option 8</a-doption>
-      <a-doption>Option 9</a-doption>
+      <a-doption v-for="item in options" :value="item.name">{{ item.title }}</a-doption>
     </template>
   </a-dropdown>
 </template>

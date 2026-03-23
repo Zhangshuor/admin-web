@@ -26,7 +26,7 @@ const menuList: MenuType[] = [
     icon: "iconfont icon-user",
     children: [
       {
-        title: '用户信息',
+        title: '个人信息',
         name: 'userInfo',
         icon: "iconfont icon-yonghuxinxi-"
       },
