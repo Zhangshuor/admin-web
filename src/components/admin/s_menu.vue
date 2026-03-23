@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import {type Component, ref} from "vue";
-import {IconHome, IconUser, IconSettings} from "@arco-design/web-vue/es/icon";
+import {type Component, ref, watch} from "vue";
 import S_component from "@/components/common/s_component.vue";
 import {collapsed} from "@/components/admin/s_menu.ts";
 import router from "@/router";
@@ -12,6 +11,7 @@ interface MenuType {
   icon?: string | Component,
   children?: MenuType[]
 }
+
 const route = useRoute()
 
 const menuList: MenuType[] = [
@@ -58,14 +58,19 @@ const menuList: MenuType[] = [
   },
 ]
 const openKeys = ref<String[]>([])
+const selectKeys = ref([route.name])
 
-function initRoute(){
-  if (route.matched.length === 3){
+function initRoute() {
+  if (route.matched.length === 3) {
     openKeys.value = [route.matched[1].name as string]
   }
+  selectKeys.value = [route.name as string]
 }
 
-initRoute()
+watch(() => route.name, () => {
+  initRoute()
+}, {immediate: true})
+
 
 function menuItemClick(key: string) {
   router.push({name: key})
@@ -79,6 +84,7 @@ function menuItemClick(key: string) {
           @menu-item-click="menuItemClick"
           v-model:collapsed="collapsed"
           v-model:open-keys="openKeys"
+          v-model:selected-keys="selectKeys"
           :default-selected-keys="[route.name]"
           show-collapse-button>
         <!--template只逻辑循环，不物理占位-->
