@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div>login</div>
+  <div>这是首页</div>
 </template>
 
 <style scoped>

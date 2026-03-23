@@ -6,6 +6,6 @@ loadTheme()
 </script>
 
 <template>
-  <icon-sun-fill v-if="theme === 'light'" @click="setTheme('dark')"/>
-  <icon-moon-fill v-else @click="setTheme('light')"/>
+  <span title="亮色模式" v-if="theme === 'light'"><icon-sun-fill @click="setTheme('dark')"/></span>
+  <span title="暗色模式" v-else><icon-moon-fill @click="setTheme('light')"/></span>
 </template>
