@@ -8,6 +8,7 @@ import {collapsed} from "@/components/admin/s_menu.ts";
 import S_breadcrumb from "@/components/admin/s_breadcrumb.vue";
 import S_user_dropdown from "@/components/common/s_user_dropdown.vue";
 import router from "@/router";
+import S_tabs from "@/components/admin/s_tabs.vue";
 
 function goHome() {
   router.push({name: 'web'})
@@ -32,9 +33,7 @@ function goHome() {
           <s_user_dropdown></s_user_dropdown>
         </div>
       </div>
-      <div class="s_tabs">
-        <div>{{ theme }}</div>
-      </div>
+      <s_tabs></s_tabs>
       <div class="s_container">
         <RouterView></RouterView>
       </div>
