@@ -24,23 +24,35 @@ function check(item: TabType) {
 
 function removeItem(item: TabType) {
   const index = tabs.value.findIndex((value) => item.name === value.name)
-  if (index != -1){
+  if (index != -1) {
     // 判断我删除的元素 是不是就是我 当前所在的
-    if (item.name == route.name){
-      router.push({name:tabs.value[index-1].name})
+    if (item.name == route.name) {
+      router.push({name: tabs.value[index - 1].name})
     }
-    tabs.value.splice(index,1)
+    tabs.value.splice(index, 1)
   }
+}
+
+function removeAllItem() {
+  const homeTab = tabs.value.find((tab) => tab.name === 'home')
+  tabs.value = homeTab ? [homeTab] : [{title: '首页', name: 'home'}]
+  router.push({name: 'home'})
 }
 </script>
 
 <template>
   <div class="s_tabs">
-    <div class="item " @click="check(item)" :class="{active:route.name===item.name}" v-for="item in tabs">
-      {{ item.title }}
-      <span class="close" @click.stop="removeItem(item)" title="删除" v-if="item.name!='home'">
+    <div class="swiper">
+      <div class="item " @click="check(item)" @mousedown.middle="removeItem(item)"
+           :class="{active:route.name===item.name}" v-for="item in tabs">
+        {{ item.title }}
+        <span class="close" @click.stop="removeItem(item)" title="删除" v-if="item.name!='home'">
         <IconClose></IconClose>
       </span>
+      </div>
+    </div>
+    <div class="item" @click="removeAllItem">
+      删除全部
     </div>
   </div>
 </template>
@@ -50,6 +62,11 @@ function removeItem(item: TabType) {
   display: flex;
   align-items: center;
   padding: 0 10px;
+  justify-content: space-between;
+
+  .swiper {
+    display: flex;
+  }
 
   .item {
     padding: 3px 8px;
