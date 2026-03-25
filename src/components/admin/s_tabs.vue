@@ -3,6 +3,7 @@
 import {useRoute} from "vue-router";
 import router from "@/router";
 import {ref, watch} from "vue";
+import { Swiper,SwiperSlide } from "swiper/vue";
 
 const route = useRoute()
 
@@ -14,6 +15,41 @@ interface TabType {
 const tabs = ref<TabType[]>([
   {title: "首页", name: "home"},
   {title: "个人信息", name: "userInfo"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
+  {title: "用户列表", name: "userList"},
   {title: "用户列表", name: "userList"},
   {title: "系统信息", name: "settings"}
 ])
@@ -60,7 +96,7 @@ function loadTabs(){
     }
   }
 }
-loadTabs()
+// loadTabs()
 
 watch(()=> route.name, () => {
   // 判断当前路由的名称，在不在tabs中，如果不在，则添加到tabs中
@@ -72,15 +108,17 @@ watch(()=> route.name, () => {
 
 <template>
   <div class="s_tabs">
-    <div class="swiper">
-      <div class="item " @click="check(item)" @mousedown.middle.stop="removeItem(item)"
-           :class="{active:route.name===item.name}" v-for="item in tabs">
-        {{ item.title }}
-        <span class="close" @click.stop="removeItem(item)" title="删除" v-if="item.name!='home'">
+    <swiper :slides-per-view="1">
+      <swiper-slide v-for="item in tabs">
+        <div class="item " @click="check(item)" @mousedown.middle.stop="removeItem(item)"
+             :class="{active:route.name===item.name}" >
+          {{ item.title }}
+          <span class="close" @click.stop="removeItem(item)" title="删除" v-if="item.name!='home'">
         <IconClose></IconClose>
       </span>
-      </div>
-    </div>
+        </div>
+      </swiper-slide>
+    </swiper>
     <div class="item" @click="removeAllItem">
       删除全部
     </div>
@@ -95,7 +133,18 @@ watch(()=> route.name, () => {
   justify-content: space-between;
 
   .swiper {
+    width: calc(100% - 100px);
     display: flex;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    .swiper-wrapper{
+      display: flex;
+      .swiper-slide{
+        width: fit-content !important;
+        flex-shrink: 0;
+      }
+    }
+
   }
 
   .item {
@@ -105,6 +154,7 @@ watch(()=> route.name, () => {
     margin-right: 10px;
     cursor: pointer;
     border-radius: 5px;
+    flex-shrink: 0;
 
     &:hover { //&: 后面跟的是伪类（如 :hover、:focus、:first-child），用于描述元素的状态或位置。
       background-color: var(--color-fill-1);
