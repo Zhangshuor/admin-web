@@ -2,7 +2,7 @@
 
 import {useRoute} from "vue-router";
 import router from "@/router";
-import {ref} from "vue";
+import {ref, watch} from "vue";
 
 const route = useRoute()
 
@@ -28,6 +28,9 @@ function saveTabs() {
 }
 
 function removeItem(item: TabType) {
+  if (tabs.value.length <= 1) {
+    return
+  }
   const index = tabs.value.findIndex((value) => item.name === value.name)
   if (index != -1) {
     // 判断我删除的元素 是不是就是我 当前所在的
@@ -58,12 +61,19 @@ function loadTabs(){
   }
 }
 loadTabs()
+
+watch(()=> route.name, () => {
+  // 判断当前路由的名称，在不在tabs中，如果不在，则添加到tabs中
+  if (!tabs.value.find((item) => item.name === route.name)) {
+    tabs.value.push({title: route.meta?.title, name: route.name as string})
+  }
+}, {immediate: true})
 </script>
 
 <template>
   <div class="s_tabs">
     <div class="swiper">
-      <div class="item " @click="check(item)" @mousedown.middle="removeItem(item)"
+      <div class="item " @click="check(item)" @mousedown.middle.stop="removeItem(item)"
            :class="{active:route.name===item.name}" v-for="item in tabs">
         {{ item.title }}
         <span class="close" @click.stop="removeItem(item)" title="删除" v-if="item.name!='home'">

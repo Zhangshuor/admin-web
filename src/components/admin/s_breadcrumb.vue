@@ -14,7 +14,3 @@ const route = useRoute()
     </template>
   </a-breadcrumb>
 </template>
-
-<style scoped>
-
-</style>
