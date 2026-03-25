@@ -20,6 +20,11 @@ const tabs = ref<TabType[]>([
 
 function check(item: TabType) {
   router.push({name: item.name})
+  saveTabs()
+}
+
+function saveTabs() {
+  localStorage.setItem("s_tabs", JSON.stringify(tabs.value))
 }
 
 function removeItem(item: TabType) {
@@ -31,13 +36,28 @@ function removeItem(item: TabType) {
     }
     tabs.value.splice(index, 1)
   }
+  saveTabs()
 }
 
 function removeAllItem() {
   const homeTab = tabs.value.find((tab) => tab.name === 'home')
   tabs.value = homeTab ? [homeTab] : [{title: '首页', name: 'home'}]
   router.push({name: 'home'})
+  saveTabs()
 }
+
+// 初始化
+function loadTabs(){
+  const s_tabs = localStorage.getItem("s_tabs")
+  if (s_tabs) {
+    try {
+      tabs.value = JSON.parse(s_tabs)
+    }catch (e: any){
+      console.log(e.message)
+    }
+  }
+}
+loadTabs()
 </script>
 
 <template>
