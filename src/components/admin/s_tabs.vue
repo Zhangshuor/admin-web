@@ -13,45 +13,7 @@ interface TabType {
 }
 
 const tabs = ref<TabType[]>([
-  {title: "首页", name: "home"},
-  {title: "个人信息", name: "userInfo"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "用户列表", name: "userList"},
-  {title: "系统信息", name: "settings"}
+  {title: "首页", name: "home"}
 ])
 
 function check(item: TabType) {
@@ -61,6 +23,7 @@ function check(item: TabType) {
 
 function saveTabs() {
   localStorage.setItem("s_tabs", JSON.stringify(tabs.value))
+  console.log(tabs.value)
 }
 
 function removeItem(item: TabType) {
@@ -96,12 +59,13 @@ function loadTabs(){
     }
   }
 }
-// loadTabs()
+loadTabs()
 
 watch(()=> route.name, () => {
   // 判断当前路由的名称，在不在tabs中，如果不在，则添加到tabs中
   if (!tabs.value.find((item) => item.name === route.name)) {
     tabs.value.push({title: route.meta?.title, name: route.name as string})
+    saveTabs()
   }
 }, {immediate: true})
 
@@ -131,6 +95,16 @@ onMounted(() => {
       }
     }
     slidesCount.value = index
+
+    // 选中高亮的元素
+    const activeSlide = document.querySelector(".s_tabs_swiper .swiper-slide.active") as HTMLDivElement
+    if (activeSlide.offsetLeft >swiperWidth){
+      const offsetLeft = swiperWidth - activeSlide.offsetLeft
+      setTimeout(() => {
+        wrapperDom.style.transition = "transform 700ms ease";
+        wrapperDom.style.transform = `translateX(${offsetLeft}px)`
+      })
+    }
   }
 })
 </script>
@@ -138,7 +112,7 @@ onMounted(() => {
 <template>
   <div class="s_tabs">
     <swiper class="s_tabs_swiper" :slides-per-view="slidesCount">
-      <swiper-slide v-for="item in tabs">
+      <swiper-slide v-for="item in tabs" :class="{active:route.name===item.name}">
         <div class="item " @click="check(item)" @mousedown.middle.stop="removeItem(item)"
              :class="{active:route.name===item.name}" >
           {{ item.title }}
