@@ -2,7 +2,7 @@
 
 import {useRoute} from "vue-router";
 import router from "@/router";
-import {ref, watch} from "vue";
+import {onMounted, ref, watch} from "vue";
 import { Swiper,SwiperSlide } from "swiper/vue";
 
 const route = useRoute()
@@ -104,11 +104,40 @@ watch(()=> route.name, () => {
     tabs.value.push({title: route.meta?.title, name: route.name as string})
   }
 }, {immediate: true})
+
+const slidesCount = ref(100);
+
+onMounted(() => {
+  // 先测容器可视宽度
+  const swiperDom = document.querySelector(".s_tabs_swiper") as HTMLDivElement;
+  const swiperWidth = swiperDom.clientWidth;
+
+  // 实际的总宽度
+  const wrapperDom = document.querySelector(".swiper-wrapper") as HTMLDivElement;
+  const wrapperWidth = wrapperDom.clientWidth;
+
+  // 如果实际总宽度大于显示的总宽度，则进行滚动
+  if (wrapperWidth > swiperWidth) {
+    // 遍历swiper-slide,然后从前往后加
+    const slideList = document.querySelectorAll(".s_tabs_swiper .swiper-slide")
+
+    let allWith = 0;
+    let index = 1
+    for (const slideListElement of slideList){
+      allWith += (slideListElement.clientWidth+20);
+      index++;
+      if (allWith > swiperWidth) {
+        break;
+      }
+    }
+    slidesCount.value = index
+  }
+})
 </script>
 
 <template>
   <div class="s_tabs">
-    <swiper :slides-per-view="1">
+    <swiper class="s_tabs_swiper" :slides-per-view="slidesCount">
       <swiper-slide v-for="item in tabs">
         <div class="item " @click="check(item)" @mousedown.middle.stop="removeItem(item)"
              :class="{active:route.name===item.name}" >
