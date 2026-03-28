@@ -9,6 +9,7 @@ import S_breadcrumb from "@/components/admin/s_breadcrumb.vue";
 import S_user_dropdown from "@/components/common/s_user_dropdown.vue";
 import router from "@/router";
 import S_tabs from "@/components/admin/s_tabs.vue";
+import S_logo from "@/components/admin/s_logo.vue";
 
 function goHome() {
   router.push({name: 'web'})
@@ -18,9 +19,7 @@ function goHome() {
 <template>
   <div class="s_admin">
     <div class="s_aside" :class="{collapsed:collapsed}">
-      <div class="s_logo">
-
-      </div>
+      <s_logo></s_logo>
       <s_menu></s_menu>
     </div>
     <div class="s_main">

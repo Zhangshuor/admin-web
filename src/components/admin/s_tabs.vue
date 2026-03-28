@@ -99,7 +99,7 @@ onMounted(() => {
     // 选中高亮的元素
     const activeSlide = document.querySelector(".s_tabs_swiper .swiper-slide.active") as HTMLDivElement
     if (activeSlide.offsetLeft >swiperWidth){
-      const offsetLeft = swiperWidth - activeSlide.offsetLeft
+      const offsetLeft = swiperWidth - activeSlide.offsaetLeft
       setTimeout(() => {
         wrapperDom.style.transition = "transform 700ms ease";
         wrapperDom.style.transform = `translateX(${offsetLeft}px)`
