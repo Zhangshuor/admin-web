@@ -1,7 +1,8 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import "@/assets/base.css"
+import "nprogress/nprogress.css";
 
+import "@/assets/base.css"
 import App from './App.vue'
 import router from './router'
 import ArcoVue from '@arco-design/web-vue';
